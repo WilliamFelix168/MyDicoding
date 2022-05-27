@@ -28,11 +28,11 @@ class UserDetail : AppCompatActivity() {
             .into(binding.imagesGithub)
         binding.nameGithub.text = user.name
         binding.usernameGithub.text = user.username
-        binding.follower.text =  "${user.followers} Follower"
-        binding.following.text =  "${user.following} Following"
-        binding.repo.text = "${user.repository} Repository"
-        binding.company.text = "Company : ${user.company} Repository"
-        binding.location.text = "Location : ${user.location}"
+        binding.follower.text =  StringBuilder().append(user.followers).append(" Follower")
+        binding.following.text =  StringBuilder().append(user.following).append(" Following")
+        binding.repo.text = StringBuilder().append(user.repository).append(" Repository")
+        binding.company.text = StringBuilder().append("Company : ").append(user.company)
+        binding.location.text = StringBuilder().append("Location : ").append(user.location)
     }
 }
 

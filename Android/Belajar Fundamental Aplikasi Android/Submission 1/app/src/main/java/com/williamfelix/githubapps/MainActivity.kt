@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 val hero = User(dataName[i],dataUsername[i], dataPhoto.getResourceId(i, -1), location[i], repository[i], company[i],followers[i], following[i])
                 listUser.add(hero)
             }
+            dataPhoto.recycle()
             return listUser
         }
 }

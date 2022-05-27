@@ -3,6 +3,16 @@
 
     <string name="app_name">Github</string>
 
+    <string name="location">Location</string>
+    <string name="company">Company</string>
+    <string name="name_github">Nama</string>
+    <string name="username_github">Username Github</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="image_github">Image Github</string>
+    <string name="repository">Repository</string>
+
+
     <string name="username">Username</string>
     <string name="name">Nama</string>
 

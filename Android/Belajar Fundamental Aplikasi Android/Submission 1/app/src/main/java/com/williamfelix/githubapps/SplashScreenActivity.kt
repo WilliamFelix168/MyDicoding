@@ -3,13 +3,15 @@ package com.williamfelix.githubapps
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 
 
 @Suppress("DEPRECATION")
-class SplashScreen : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val time = 1000
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
@@ -18,10 +20,10 @@ class SplashScreen : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
 
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 1000) // 3000 is the delayed time in milliseconds.
+        }, time.toLong())
     }
 }
