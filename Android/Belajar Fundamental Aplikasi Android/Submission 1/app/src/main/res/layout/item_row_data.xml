@@ -50,32 +50,21 @@
         <TextView
             android:id="@+id/tv_item_username"
             style="@style/ListText"
-            android:layout_width="70dp"
+            android:layout_width="150dp"
             android:layout_height="20dp"
+            android:layout_marginStart="9dp"
             android:layout_marginTop="8dp"
-            android:ellipsize="end"
+            android:layout_marginEnd="184dp"
             android:contentDescription="@string/username_github"
+            android:ellipsize="end"
             android:maxLines="5"
             card_view:layout_constraintBottom_toBottomOf="@+id/img_item_photo"
             card_view:layout_constraintEnd_toEndOf="@+id/tv_item_name"
-            card_view:layout_constraintHorizontal_bias="0.03"
-            card_view:layout_constraintStart_toEndOf="@+id/textView2"
+            card_view:layout_constraintHorizontal_bias="0.012"
+            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
             card_view:layout_constraintVertical_bias="0.0"
             tools:text="@string/username" />
-
-        <TextView
-            android:id="@+id/textView2"
-            style="@style/ListText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Username :"
-            android:contentDescription="@string/username_github"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toStartOf="@+id/tv_item_name"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
-            card_view:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -1,16 +1,21 @@
 package com.williamfelix.githubapps
 
-import android.content.res.Configuration
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.View
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.williamfelix.githubapps.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     private lateinit var rvUsers : RecyclerView
-    private val list = ArrayList<User>()
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,40 +23,58 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        showLoading(false)
+
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvUsers.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        binding.rvUsers.addItemDecoration(itemDecoration)
+
+        mainViewModel.listUser.observe(this) { data ->
+            showList(data)
+        }
+
+        mainViewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
 
         rvUsers = findViewById(R.id.rv_users)
         rvUsers.setHasFixedSize(true)
-
-        list.addAll(listUser)
-        showRecyclerList()
     }
 
-    private fun showRecyclerList() {
-        if (applicationContext.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            rvUsers.layoutManager = GridLayoutManager(this, 2)
-        } else {
-            rvUsers.layoutManager = LinearLayoutManager(this)
-        }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchView.clearFocus()
+                mainViewModel.findUser(query)
+                return true
+            }
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+        })
+        return true
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showList(list: List<ItemsItem>) {
         val listUserAdapter = ListUserAdapter(list)
         rvUsers.adapter = listUserAdapter
     }
-
-    private val listUser: ArrayList<User>
-        get() {
-            val dataName = resources.getStringArray(R.array.name_github)
-            val dataUsername = resources.getStringArray(R.array.username)
-            val location = resources.getStringArray(R.array.location)
-            val repository = resources.getStringArray(R.array.repository)
-            val company = resources.getStringArray(R.array.company)
-            val followers = resources.getStringArray(R.array.followers)
-            val following= resources.getStringArray(R.array.following)
-            val dataPhoto = resources.obtainTypedArray(R.array.avatar)
-            val listUser = ArrayList<User>()
-            for (i in dataName.indices) {
-                val hero = User(dataName[i],dataUsername[i], dataPhoto.getResourceId(i, -1), location[i], repository[i], company[i],followers[i], following[i])
-                listUser.add(hero)
-            }
-            dataPhoto.recycle()
-            return listUser
-        }
 }

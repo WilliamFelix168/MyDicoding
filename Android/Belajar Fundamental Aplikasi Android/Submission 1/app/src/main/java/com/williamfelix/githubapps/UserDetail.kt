@@ -1,9 +1,12 @@
 package com.williamfelix.githubapps
 
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.Toast
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.williamfelix.githubapps.databinding.ActivityUserDetailBinding
 
 
@@ -12,28 +15,41 @@ class UserDetail : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailBinding
 
     companion object {
-        const val USER = "user"
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2,
+            R.string.tab_text_3,
+        )
+
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val user = intent.getParcelableExtra<User>(USER) as User
-        Glide.with(binding.imagesGithub)
-            .load(user.photo)
-            .centerCrop()
-            .circleCrop()
-            .into(binding.imagesGithub)
-        binding.nameGithub.text = user.name
-        binding.usernameGithub.text = user.username
-        binding.follower.text =  StringBuilder().append(user.followers).append(" Follower")
-        binding.following.text =  StringBuilder().append(user.following).append(" Following")
-        binding.repo.text = StringBuilder().append(user.repository).append(" Repository")
-        binding.company.text = StringBuilder().append("Company : ").append(user.company)
-        binding.location.text = StringBuilder().append("Location : ").append(user.location)
+        val user = intent.getStringExtra("username").toString()
+//        val bundle = Bundle()
+//        bundle.putString("username", user)
+//        val myFrag = ProfileFragment()
+//        myFrag.arguments = bundle
+
+        Toast.makeText(this@UserDetail, user, Toast.LENGTH_SHORT).show()
+
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+
+        supportActionBar?.elevation = 0f
     }
+
+
 }
 
 
