@@ -27,7 +27,12 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
                     putString(FollowerFragment.USERNAME, username)
                 }
             }
-            2 -> fragment = FollowingFragment()
+            2 ->{
+                fragment = FollowingFragment()
+                fragment.arguments = Bundle().apply {
+                    putString(FollowingFragment.USERNAME, username)
+                }
+            }
         }
         return fragment as Fragment
     }

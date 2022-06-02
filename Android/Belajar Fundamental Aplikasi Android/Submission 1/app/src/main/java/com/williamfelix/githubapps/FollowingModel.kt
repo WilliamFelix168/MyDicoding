@@ -8,9 +8,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowerModel: ViewModel() {
-    private val _listFollower = MutableLiveData<List<FollowerResponseItem>>()
-    val listFollower: LiveData<List<FollowerResponseItem>> = _listFollower
+class FollowingModel: ViewModel() {
+    private val _listFollowing = MutableLiveData<List<FollowingResponseItem>>()
+    val listFollowing: LiveData<List<FollowingResponseItem>> = _listFollowing
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
@@ -19,27 +19,27 @@ class FollowerModel: ViewModel() {
         private const val TAG = "FollowerModel"
     }
 
-    fun findFollower(query: String) {
+    fun findFollowing(query: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getFollower(query)
-        client.enqueue(object : Callback<List<FollowerResponseItem>> {
+        val client = ApiConfig.getApiService().getFollowing(query)
+        client.enqueue(object : Callback<List<FollowingResponseItem>> {
             override fun onResponse(
-                call: Call<List<FollowerResponseItem>>,
-                response: Response<List<FollowerResponseItem>>
+                call: Call<List<FollowingResponseItem>>,
+                response: Response<List<FollowingResponseItem>>
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         Log.d("TAG",responseBody.toString())
-                        _listFollower.value = responseBody
+                        _listFollowing.value = responseBody
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
             }
 
-            override fun onFailure(call: Call<List<FollowerResponseItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<FollowingResponseItem>>, t: Throwable) {
                 _isLoading.value = false
                 Log.e(TAG, "onFailure: ${t.message}")
             }

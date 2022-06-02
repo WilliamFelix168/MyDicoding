@@ -83,3 +83,17 @@ data class FollowerResponseItem(
 	@field:SerializedName("login")
 	val login: String? = null
 )
+
+data class FollowingResponse(
+	@field:SerializedName("FollowingResponse")
+	val followerResponse: List<FollowingResponseItem>
+)
+
+data class FollowingResponseItem(
+
+	@field:SerializedName("avatar_url")
+	val avatarUrl: String? = null,
+
+	@field:SerializedName("login")
+	val login: String? = null
+)
