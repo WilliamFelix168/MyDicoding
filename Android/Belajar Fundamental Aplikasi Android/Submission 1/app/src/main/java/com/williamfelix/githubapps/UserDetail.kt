@@ -21,9 +21,7 @@ class UserDetail : AppCompatActivity() {
             R.string.tab_text_2,
             R.string.tab_text_3,
         )
-
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,14 +29,10 @@ class UserDetail : AppCompatActivity() {
         setContentView(binding.root)
 
         val user = intent.getStringExtra("username").toString()
-//        val bundle = Bundle()
-//        bundle.putString("username", user)
-//        val myFrag = ProfileFragment()
-//        myFrag.arguments = bundle
-
         Toast.makeText(this@UserDetail, user, Toast.LENGTH_SHORT).show()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter.username = user
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)

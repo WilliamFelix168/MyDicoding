@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.williamfelix.githubapps.databinding.ItemRowDataBinding
-import okhttp3.internal.userAgent
 
 class ListUserAdapter(private val listUser: List<ItemsItem>): RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     class ListViewHolder(var binding: ItemRowDataBinding) : RecyclerView.ViewHolder(binding.root)

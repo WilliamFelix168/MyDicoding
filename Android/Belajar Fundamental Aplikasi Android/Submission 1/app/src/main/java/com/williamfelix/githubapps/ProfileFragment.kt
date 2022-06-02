@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.williamfelix.githubapps.databinding.FragmentProfileBinding
@@ -13,24 +14,21 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentProfileBinding.inflate(layoutInflater)
-        //val myStr = arguments.getString("username")
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_profile, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentProfileBinding.inflate(layoutInflater)
+        val name = arguments?.getString(USERNAME)
+        findUser(name.toString())
     }
 
     companion object {
@@ -48,8 +46,8 @@ class ProfileFragment : Fragment() {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
-                        setUserDetail(responseBody)
                         showLoading(false)
+                        setUserDetail(responseBody)
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
@@ -68,7 +66,7 @@ class ProfileFragment : Fragment() {
             .centerCrop()
             .circleCrop()
             .into(binding.imagesGithub)
-        binding.nameGithub.text = user.name ?: "-"
+        binding.nameGithub.text = user.name
         binding.usernameGithub.text = user.login
         binding.follower.text =  StringBuilder().append(user.followers).append(" Follower")
         binding.following.text =  StringBuilder().append(user.following).append(" Following")
