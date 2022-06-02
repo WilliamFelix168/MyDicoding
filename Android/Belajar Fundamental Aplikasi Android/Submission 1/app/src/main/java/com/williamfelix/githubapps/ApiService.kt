@@ -5,13 +5,13 @@ import retrofit2.http.*
 
 interface ApiService {
     @GET("search/users")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getUser(
         @Query("q") query: String
     ): Call<UserResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getDetailUser(
         @Path("username") username: String
     ): Call<UserDetailResponse>
