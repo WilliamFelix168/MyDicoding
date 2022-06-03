@@ -10,18 +10,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.williamfelix.githubapps.databinding.ActivityUserDetailBinding
 
 
-class UserDetail : AppCompatActivity() {
+class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
-
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.tab_text_1,
-            R.string.tab_text_2,
-            R.string.tab_text_3,
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +20,7 @@ class UserDetail : AppCompatActivity() {
         setContentView(binding.root)
 
         val user = intent.getStringExtra("username").toString()
-        Toast.makeText(this@UserDetail, user, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this@UserDetailActivity, user, Toast.LENGTH_SHORT).show()
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = user
@@ -43,7 +34,14 @@ class UserDetail : AppCompatActivity() {
         supportActionBar?.elevation = 0f
     }
 
-
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2,
+            R.string.tab_text_3,
+        )
+    }
 }
 
 

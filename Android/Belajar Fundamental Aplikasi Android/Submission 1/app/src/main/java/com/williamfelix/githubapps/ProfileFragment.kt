@@ -30,11 +30,6 @@ class ProfileFragment : Fragment() {
         findUser(name.toString())
     }
 
-    companion object {
-        private const val TAG = "ProfileFragment"
-        var USERNAME = "username"
-    }
-
     private fun findUser(query: String) {
         val client = ApiConfig.getApiService().getDetailUser(query)
         client.enqueue(object : Callback<UserDetailResponse> {
@@ -76,5 +71,10 @@ class ProfileFragment : Fragment() {
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        private const val TAG = "ProfileFragment"
+        var USERNAME = "username"
     }
 }

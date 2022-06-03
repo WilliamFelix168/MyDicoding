@@ -27,14 +27,6 @@ class ListFollowerAdapter(private val listFollower: List<FollowerResponseItem>) 
 
         holder.binding.tvItemName.text = name
         holder.binding.tvItemUsername.text = name
-//        holder.itemView.setOnClickListener {
-//            val userDetail = Intent(holder.itemView.context, UserDetail::class.java)
-//            userDetail.putExtra("username",name)
-//            holder.itemView.context.startActivity(userDetail)
-//        }
     }
-
     override fun getItemCount(): Int = listFollower.size
-
-    class ListViewHolder(var binding: ItemRowDataBinding) : RecyclerView.ViewHolder(binding.root)
 }

@@ -8,46 +8,45 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.williamfelix.githubapps.databinding.FragmentFollowingBinding
+import com.williamfelix.githubapps.databinding.FragmentFollowerBinding
 
 class FollowingFragment : Fragment() {
-    private lateinit var binding: FragmentFollowingBinding
-
-    companion object {
-        private const val TAG = "FollowingFragment"
-        var USERNAME = "username"
-    }
+    private lateinit var binding: FragmentFollowerBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentFollowingBinding.inflate(inflater,container,false)
+        binding = FragmentFollowerBinding.inflate(inflater,container,false)
         val layoutManager = LinearLayoutManager(context)
-        binding.rvFollowing.layoutManager = layoutManager
+        binding.rvFollowers.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(context, layoutManager.orientation)
-        binding.rvFollowing.addItemDecoration(itemDecoration)
+        binding.rvFollowers.addItemDecoration(itemDecoration)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val followingModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowingModel::class.java)
+        val followingModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[FollowingModel::class.java]
         followingModel.isLoading.observe(viewLifecycleOwner) {
             showLoading(it)
         }
-        val name = arguments?.getString(FollowingFragment.USERNAME)
+        val name = arguments?.getString(USERNAME)
         followingModel.findFollowing(name?:"")
         followingModel.listFollowing.observe(viewLifecycleOwner) { data ->
             val listFollowingAdapter = ListFollowingAdapter(data)
-            binding.rvFollowing.adapter = listFollowingAdapter
+            binding.rvFollowers.adapter = listFollowingAdapter
         }
 
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    companion object {
+        var USERNAME = "username"
     }
 }

@@ -15,10 +15,6 @@ class FollowerModel: ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
-    companion object{
-        private const val TAG = "FollowerModel"
-    }
-
     fun findFollower(query: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getFollower(query)
@@ -46,6 +42,8 @@ class FollowerModel: ViewModel() {
         })
     }
 
-
+    companion object{
+        private const val TAG = "FollowerModel"
+    }
 }
 

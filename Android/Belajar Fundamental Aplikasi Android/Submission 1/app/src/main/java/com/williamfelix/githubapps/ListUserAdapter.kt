@@ -27,9 +27,9 @@ class ListUserAdapter(private val listUser: List<ItemsItem>): RecyclerView.Adapt
         holder.binding.tvItemName.text = name
         holder.binding.tvItemUsername.text = name
         holder.itemView.setOnClickListener {
-            val userDetail = Intent(holder.itemView.context, UserDetail::class.java)
-            userDetail.putExtra("username",name)
-            holder.itemView.context.startActivity(userDetail)
+            val userDetailActivity = Intent(holder.itemView.context, UserDetailActivity::class.java)
+            userDetailActivity.putExtra("username",name)
+            holder.itemView.context.startActivity(userDetailActivity)
         }
     }
 
