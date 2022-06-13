@@ -9,7 +9,7 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
     var username: String = ""
 
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -33,6 +33,7 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
                     putString(FollowingFragment.USERNAME, username)
                 }
             }
+            3-> fragment = BookmarkFragment()
         }
         return fragment as Fragment
     }

@@ -45,11 +45,13 @@ class ProfileFragment : Fragment() {
                     }
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
+                    showLoading(true)
                 }
             }
 
             override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
+                showLoading(true)
             }
         })
     }

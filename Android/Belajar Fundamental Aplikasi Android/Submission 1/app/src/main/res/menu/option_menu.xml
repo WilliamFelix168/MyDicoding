@@ -7,4 +7,14 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
+
+    <item
+        android:id="@+id/switch_theme"
+        android:checked="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/dark_mode"
+        android:icon="@drawable/ic_baseline_brightness_6_24"
+        app:showAsAction="collapseActionView|always" />
+
 </menu>

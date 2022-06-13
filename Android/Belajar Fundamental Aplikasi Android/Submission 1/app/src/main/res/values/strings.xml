@@ -4,6 +4,8 @@
     <string name="app_name">Github</string>
     <string name="search_hint">Masukkan User Github</string>
 
+    <string name="dark_mode">Dark Mode</string>
+
     <string name="location">Location</string>
     <string name="company">Company</string>
     <string name="name_github">Nama</string>
@@ -17,6 +19,7 @@
     <string name="tab_text_1">Profile</string>
     <string name="tab_text_2">Follower</string>
     <string name="tab_text_3">Following</string>
+    <string name="tab_text_4">Bookmark</string>
 
 
     <string name="username">Username</string>
